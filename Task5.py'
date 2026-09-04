@@ -1,0 +1,67 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("https://raw.githubusercontent.com/UZRKHATRI29/Q3_Sales_Data/main/q3_sales_data.csv")
+
+print("Complete Dataset:")
+print(df)
+
+print("\nFirst 5 Rows:")
+print(df.head())
+
+print("\nDataset Information:")
+df.info()
+
+print("\nShape of Dataset:")
+print(df.shape)
+
+print("\nMissing Values:")
+print(df.isnull().sum())
+
+total_sales = df["Sales"].sum()
+
+print("\nTotal Sales:")
+print(total_sales)
+
+product_sales = df.groupby("Product")["Sales"].sum()
+
+print("\nSales by Product:")
+print(product_sales)
+
+region_sales = df.groupby("Region")["Sales"].sum()
+
+print("\nSales by Region:")
+print(region_sales)
+
+best_product = product_sales.idxmax()
+
+print("\nBest Selling Product:")
+print(best_product)
+
+best_region = region_sales.idxmax()
+
+print("\nBest Performing Region:")
+print(best_region)
+
+product_sales.plot(kind="bar")
+
+plt.title("Sales by Product")
+plt.xlabel("Product")
+plt.ylabel("Total Sales")
+plt.tight_layout()
+plt.show()
+
+region_sales.plot(kind="bar")
+
+plt.title("Sales by Region")
+plt.xlabel("Region")
+plt.ylabel("Total Sales")
+plt.tight_layout()
+plt.show()
+
+product_sales.plot(kind="pie", autopct="%1.1f%%")
+
+plt.title("Product-wise Sales Distribution")
+plt.ylabel("")
+plt.tight_layout()
+plt.show()
